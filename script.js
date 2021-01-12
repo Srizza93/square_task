@@ -1,6 +1,7 @@
+document.addEventListener("mouseover", myFunction);
 let event;
 let squarePos = document.getElementById("square");
-function mouseCoordinates(event) {
+function myFunction(event) {
   let x = event.clientX;
   let y = event.clientY;
   squarePos.style.position = "absolute";
