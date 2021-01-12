@@ -7,8 +7,8 @@ function myFunction(event) {
   squarePos.style.position = "absolute";
   squarePos.style.left = x + "px";
   squarePos.style.top = y + "px";
-  squarePos.style.width = "80px";
-  squarePos.style.height = "80px";
+  squarePos.style.width = "100px";
+  squarePos.style.height = "100px";
 }
 
 function mouseOut(event) {
