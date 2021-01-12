@@ -1,4 +1,6 @@
 document.addEventListener("mouseover", myFunction);
+document.addEventListener("mouseout", outFunction);
+
 let event;
 let squarePos = document.getElementById("square");
 function myFunction(event) {
@@ -11,7 +13,7 @@ function myFunction(event) {
   squarePos.style.height = "100px";
 }
 
-function mouseOut(event) {
+function outFunction() {
   squarePos.style.width = "50px";
   squarePos.style.height = "50px";
 }
