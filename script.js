@@ -2,7 +2,6 @@ var coordinates_module = (function() {
   'use strict';
   
   var squarePos = document.getElementById("square");
-  var event = this.event;
   
   function myFunction() {
     let x = this.clientX;
