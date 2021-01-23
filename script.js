@@ -1,11 +1,11 @@
-var coordinates_module = (function() {
+var coordinates_module = (function(event) {
   'use strict';
   
   var squarePos = document.getElementById("square");
   
-  function myFunction() {
-    let x = this.clientX;
-    let y = this.clientY;
+  function myFunction(event) {
+    let x = event.clientX;
+    let y = event.clientY;
     squarePos.style.position = "absolute";
     squarePos.style.left = x + "px";
     squarePos.style.top = y + "px";
