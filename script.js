@@ -1,7 +1,5 @@
-var coordinates_module = (function(event) {
-  'use strict';
-  
-  var squarePos = document.getElementById("square");
+var coordinates_module = (function(event) {  
+  let squarePos = document.getElementById("square");
   
   function myFunction(event) {
     let x = event.clientX;
