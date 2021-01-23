@@ -1,9 +1,10 @@
 var coordinates_module = (function(event) {  
   let squarePos = document.getElementById("square");
-  let x = event.clientX;
-  let y = event.clientY;
+  
   
   function myFunction() {
+    let x = event.clientX;
+    let y = event.clientY;
     squarePos.style.position = "absolute";
     squarePos.style.left = x + "px";
     squarePos.style.top = y + "px";
