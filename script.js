@@ -1,8 +1,8 @@
-var coordinates_module = (function(event) {  
+var coordinates_module = (function() {  
   let squarePos = document.getElementById("square");
   
   
-  function myFunction() {
+  function in_mouse(event) {
     let x = event.clientX;
     let y = event.clientY;
     squarePos.style.position = "absolute";
@@ -19,8 +19,8 @@ var coordinates_module = (function(event) {
   
   return {
     movement: function() {
-      document.addEventListener("mouseover", myFunction);
-      document.addEventListener("mouseout", outFunction);
+      document.addEventListener("mouseover", in_mouse());
+      document.addEventListener("mouseout", outFunction());
     }
   }
   
