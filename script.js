@@ -4,9 +4,9 @@ var coordinates_module = (function() {
   var squarePos = document.getElementById("square");
   var event = this.event;
   
-  function myFunction(event) {
-    let x = event.clientX;
-    let y = event.clientY;
+  function myFunction() {
+    let x = this.clientX;
+    let y = this.clientY;
     squarePos.style.position = "absolute";
     squarePos.style.left = x + "px";
     squarePos.style.top = y + "px";
