@@ -8,8 +8,4 @@ function mouse_move(e) {
   console.log("Detected");
 }
   
-function mouse_up(e) {
-  console.log("Mouse is up");
-}
-  
  
