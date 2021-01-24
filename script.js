@@ -17,7 +17,7 @@ let coordinates_module = (function() {
   }
   
   return {
-    movement: function() {
+    movement: function(event) {
       space.addEventListener("mouseover", mouse_down());
     }
   }
