@@ -4,8 +4,8 @@ let coordinates_module = (function(event) {
   const space = document.getElementsByTagName("body");
   
   function mouse_down(event) {
-    x = event.offsetX;
-    y = event.offsetY;
+    x = event.clientX;
+    y = event.clientY;
     mouse_on = true;
     console.log("DETECTED", mouse_on);
   }
