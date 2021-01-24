@@ -1,4 +1,5 @@
-function mouse_move(e) {
+var myModule = (function() {
+  function mouse_move(e) {
   let squarePos = document.getElementById("square");
   const space = document.getElementsByTagName("body");
   let x = e.clientX, y = e.clientY;
@@ -6,6 +7,12 @@ function mouse_move(e) {
   squarePos.style.left = x + 'px';
   squarePos.style.top = y + 'px';
   console.log("Detected");
-}
+  }
+  
+  return {
+    mouse_move: mouse_move
+  };
+  
+});
   
  
