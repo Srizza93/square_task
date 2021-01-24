@@ -10,7 +10,9 @@ var my_module = (function() {
   }
   
   return {
-    mouse_move:mouse_move
+    output: function() {
+      mouse_move(e);
+    }
   }
   
 });
