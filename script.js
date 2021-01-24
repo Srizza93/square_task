@@ -1,4 +1,4 @@
-var myModule = (function() {
+var my_module = (function() {
   function mouse_move(e) {
   let squarePos = document.getElementById("square");
   const space = document.getElementsByTagName("body");
