@@ -1,6 +1,16 @@
 var coordinates_module = (function() {  
   let squarePos = document.getElementById("square");
+  let mouse_on = false, x = 0, y = 0;
   
+  function mouse_down() {
+    
+  }
+  
+  function mouse_move() {
+  }
+  
+  function mouse_up() {
+  }
   
   function in_mouse(event) {
     let x = event.clientX;
