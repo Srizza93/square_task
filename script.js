@@ -9,7 +9,9 @@ var my_module = (function() {
   console.log("Detected");
   }
   
-  return mouse_move(e);
+  return {
+    mouse_move:mouse_move
+  }
   
 });
   
