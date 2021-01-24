@@ -9,9 +9,7 @@ var myModule = (function() {
   console.log("Detected");
   }
   
-  return {
-    mouse_move: mouse_move
-  };
+  return mouse_move(e);
   
 });
   
