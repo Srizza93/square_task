@@ -1,4 +1,4 @@
-let coordinates_module = (function(event) {  
+let coordinates_module = (function() {  
   let squarePos = document.getElementById("square");
   let mouse_on = false, x = 0, y = 0;
   const space = document.getElementsByTagName("body");
