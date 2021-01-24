@@ -1,9 +1,13 @@
-var coordinates_module = (function() {  
+let coordinates_module = (function(event) {  
   let squarePos = document.getElementById("square");
   let mouse_on = false, x = 0, y = 0;
+  const space = document.getElementsByTagName("body");
   
-  function mouse_down() {
-    
+  function mouse_down(event) {
+    x = event.offsetX;
+    y = event.offsetY;
+    mouse_on = true;
+    console.log("DETECTED", mouse_on);
   }
   
   function mouse_move() {
@@ -12,28 +16,10 @@ var coordinates_module = (function() {
   function mouse_up() {
   }
   
-  function in_mouse(event) {
-    let x = event.clientX;
-    let y = event.clientY;
-    squarePos.style.position = "absolute";
-    squarePos.style.left = x + "px";
-    squarePos.style.top = y + "px";
-    squarePos.style.width = "100px";
-    squarePos.style.height = "100px";
-  }
-  
-  function outFunction() {
-    squarePos.style.width = "50px";
-    squarePos.style.height = "50px";
-  }
-  
   return {
     movement: function() {
-      document.addEventListener("mouseover", in_mouse());
-      document.addEventListener("mouseout", outFunction());
+      space.addEventListener("mouseover", mouse_down());
     }
   }
   
 })();
-
-coordinates_module.movement();
