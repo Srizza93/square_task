@@ -1,4 +1,8 @@
-var my_module = (function() {
+ class Get_mouse {
+  constructor(event) {
+    this.event = event;
+  }
+  
   function mouse_move(e) {
   let squarePos = document.getElementById("square");
   const space = document.getElementsByTagName("body");
@@ -8,13 +12,5 @@ var my_module = (function() {
   squarePos.style.top = y + 'px';
   console.log("Detected");
   }
-  
-  return {
-    output: function() {
-      mouse_move(e);
-    }
-  }
-  
-});
-  
+}
  
