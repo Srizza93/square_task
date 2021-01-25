@@ -1,16 +1,15 @@
- class Get_mouse {
-  constructor(event) {
-    this.event = event;
-  }
-  
-  function mouse_move(e) {
-  let squarePos = document.getElementById("square");
-  const space = document.getElementsByTagName("body");
-  let x = e.clientX, y = e.clientY;
-  squarePos.style.position = "absolute";
-  squarePos.style.left = x + 'px';
-  squarePos.style.top = y + 'px';
-  console.log("Detected");
-  }
-}
- 
+var my_module = (function() {
+    function mouse_move(event) {
+        let squarePos = document.getElementById("square");
+        const space = document.getElementsByTagName("body");
+        let x = event.clientX, y = event.clientY;
+        squarePos.style.position = "absolute";
+        squarePos.style.left = x + 'px';
+        squarePos.style.top = y + 'px';
+        console.log("Detected");
+        }
+
+        return {
+            output:mouse_move(event)
+        };
+})
