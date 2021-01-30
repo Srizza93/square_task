@@ -1,26 +1,20 @@
-var my_module = (function() {
-    let x = event.clientX, y = event.clientY;
-    let squarePos = document.getElementById("square");
+class MyClass {
 
-    function mouse_move(event) {
-        squarePos.style.position = "absolute";
-        squarePos.style.left = x + 'px';
-        squarePos.style.top = y + 'px';
+    constructor() {
+        this.coords = document.addEventListener("mousemove", function() {
+            document.getElementById("square").style.position = "absolute",
+            document.getElementById("square").style.left = event.clientX + 'px',
+            document.getElementById("square").style.top = event.clientY + 'px';
+            if (event.clientX >= document.documentElement.clientWidth- 51) 
+                document.getElementById("square").style.left = (document.documentElement.clientWidth - 51) + 'px';
+            if (event.clientY >= document.documentElement.clientHeight - 51) 
+                document.getElementById("square").style.top = (document.documentElement.clientHeight - 51) + 'px';
+        });
     }
+    
+    method() {
+        
+    } 
+}
 
-    function screen_limit() {
-        let screen_width = document.documentElement.clientWidth,
-        screen_height = document.documentElement.clientHeight;
-        if (x >= screen_width - 51) {
-            squarePos.style.left = (screen_width - 51) + 'px';
-        }
-        if (y >= screen_height - 51) {
-            squarePos.style.top = (screen_height - 51) + 'px';
-        }
-    }   
-
-        return {
-            output:mouse_move(event),
-            output:screen_limit()
-        };
-})
+const action = new MyClass(); 
