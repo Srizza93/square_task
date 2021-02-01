@@ -1,20 +1,30 @@
 class MyClass {
 
-    constructor() {
-        this.coords = document.addEventListener("mousemove", function() {
-            document.getElementById("square").style.position = "absolute",
-            document.getElementById("square").style.left = event.clientX + 'px',
-            document.getElementById("square").style.top = event.clientY + 'px';
-            if (event.clientX >= document.documentElement.clientWidth- 51) 
-                document.getElementById("square").style.left = (document.documentElement.clientWidth - 51) + 'px';
-            if (event.clientY >= document.documentElement.clientHeight - 51) 
-                document.getElementById("square").style.top = (document.documentElement.clientHeight - 51) + 'px';
-        });
+    constructor(square_pos, screen_width, screen_height) {
+        this.square_pos = square_pos;
+        this.screen_width = screen_width;
+        this.screen_height = screen_height;
+        this.screen();
+        this.evt = window.event;
     }
     
-    method() {
-        
+    screen() {
+        console.log(this.evt.clientX);
+    }
+    
+    coords(event) {
+        square_pos.style.position = "absolute",
+        square_pos.style.left = event.clientX + 'px',
+        square_pos.style.top = event.clientY + 'px';
     } 
+    
+
+
 }
 
-const action = new MyClass(); 
+let square_pos = document.getElementById("square"),
+screen_width = document.documentElement.clientWidth,
+screen_height = document.documentElement.clientHeight;
+let action = new MyClass(square_pos, screen_width, screen_height);
+window.onmousemove = action.coords;
+
