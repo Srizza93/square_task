@@ -4,8 +4,6 @@ class MyClass {
         this.square_pos = square_pos;
         this.screen_width = screen_width;
         this.screen_height = screen_height;
-        this.screen();
-        this.evt = window.event;
     }
     
     coords(event) {
