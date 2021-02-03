@@ -8,18 +8,12 @@ class MyClass {
         this.evt = window.event;
     }
     
-    screen() {
-        console.log(this.evt.clientX);
-    }
-    
     coords(event) {
         square_pos.style.position = "absolute",
         square_pos.style.left = event.clientX + 'px',
         square_pos.style.top = event.clientY + 'px';
     } 
     
-
-
 }
 
 let square_pos = document.getElementById("square"),
