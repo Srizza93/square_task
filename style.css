@@ -1,14 +1,23 @@
 html, body {
-  margin: 0;
-  height: 100%;
-}
+    margin: 0;
+    height: 100%;
+  }
 
+.box {
+  width: 70%;
+  height: 70%;
+  border: 1px solid black;
+  margin: auto;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+  
 #square {
   border: 1px solid black;
   height: 50px;
   width: 50px;
 }
-
+  
 #square:hover {
   background-color: red;
 }
