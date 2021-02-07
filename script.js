@@ -1,42 +1,53 @@
+let square_pos = document.getElementById("square"),
+box_space = document.getElementsByClassName("box")[0],
+box_width = box_space.offsetWidth,
+box_height = box_space.offsetHeight,
+mouse_x = square_pos.style.left, 
+mouse_y = square_pos.style.top;
+
 class MyClass {
     
-    constructor(square_pos, screen_width, screen_height) {
+    constructor(square_pos, box_width, box_height, mouse_x, mouse_y) {
         this.square_pos = square_pos;
-        this.screen_width = screen_width;
-        this.screen_height = screen_height;
+        this.box_width = box_width;
+        this.box_height = box_height;
+        this.mouse_x = mouse_x;
+        this.mouse_y = mouse_y;
     }
 
-    coords(event) {
-        square_pos.style.position = "absolute",
-        square_pos.style.left = event.clientX + 'px',
-        square_pos.style.top = event.clientY + 'px';
+    
+    box_delimiter() {
+        let box_space = document.getElementsByClassName("box")[0];
+        let margin_top = window.getComputedStyle(box_space).marginTop;
+        let margin_top_round = Math.round(Number(margin_top.substring(0,margin_top.indexOf("p"))));
+        if (mouse_x >= (window.innerWidth - box_width) / 2 + box_width - square_pos.offsetWidth)
+            mouse_x = (window.innerWidth - box_width) / 2 + box_width - square_pos.offsetWidth + 'px';
+        if (mouse_x <= (window.innerWidth - box_width) / 2) 
+            mouse_x = (window.innerWidth - box_width) / 2 + 'px';
+        if (mouse_y >= margin_top_round + box_space.offsetHeight - square_pos.offsetHeight)
+            mouse_y = margin_top_round + box_space.offsetHeight - square_pos.offsetHeight + 'px';
+        if (mouse_y <= margin_top_round)
+            mouse_y = margin_top_round + 'px';
+    }
+
+    get_coords(event) {
+        mouse_x = event.clientX;
+        mouse_y = event.clientY;
+        this.box_delimiter();
     } 
     
-    screen() {
-        let space = document.getElementsByClassName("box")[0];
-        let margin_top = window.getComputedStyle(space).marginTop;
-        let margin_top_round = Math.round(Number(margin_top.substring(0,margin_top.indexOf("p"))));
-        if (Number(square_pos.style.left.substring(0,square_pos.style.left.indexOf("p"))) >= (window.innerWidth - screen_width) / 2 + screen_width - square_pos.offsetWidth)
-        square_pos.style.left = (window.innerWidth - screen_width) / 2 + screen_width - square_pos.offsetWidth + 'px';
-        if (Number(square_pos.style.left.substring(0,square_pos.style.left.indexOf("p"))) <= (window.innerWidth - screen_width) / 2) 
-        square_pos.style.left = (window.innerWidth - screen_width) / 2 + 'px';
-        if (Number(square_pos.style.top.substring(0,square_pos.style.top.indexOf("p"))) >= margin_top_round + space.offsetHeight - square_pos.offsetHeight)
-        square_pos.style.top = margin_top_round + space.offsetHeight - square_pos.offsetHeight + 'px';
-        if (Number(square_pos.style.top.substring(0,square_pos.style.top.indexOf("p"))) <= margin_top_round)
-        square_pos.style.top = margin_top_round + 'px';
+    update(event) {
+        square_pos.style.position = "absolute";
+        square_pos.style.left = mouse_x + 'px',
+        square_pos.style.top = mouse_y + 'px';
     }
-
+    
 }
 
-let square_pos = document.getElementById("square");
-let space = document.getElementsByClassName("box")[0];
-screen_width = space.offsetWidth,
-screen_height = space.offsetHeight;
-let action = new MyClass(square_pos, screen_width, screen_height);
-space.addEventListener("mousemove", () => {
-    action.coords(event),
-    action.screen()
+let action = new MyClass(square_pos ,box_width, box_height);
+box_space.addEventListener("mousemove", () => {
+    action.get_coords(event),
+    setInterval(() => {
+        action.update()
+    }, 3000);
 });
-
-
-
