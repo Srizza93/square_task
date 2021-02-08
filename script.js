@@ -25,7 +25,7 @@ class Square_run {
         }
         // Bottom
         if (this.mouse_y >= this.margin_bottom - this.square_el.offsetHeight) {
-            this.mouse_y = this.margin_bottom - this.square_el.offsetHeight+1;
+            this.mouse_y = this.margin_bottom - this.square_el.offsetHeight;
         }
         // Top
         else if (this.mouse_y <= this.margin_top) {
