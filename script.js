@@ -1,53 +1,59 @@
-let square_pos = document.getElementById("square"),
-box_space = document.getElementsByClassName("box")[0],
-box_width = box_space.offsetWidth,
-box_height = box_space.offsetHeight,
-mouse_x = square_pos.style.left, 
-mouse_y = square_pos.style.top;
-
-class MyClass {
+class Square_run {
     
-    constructor(square_pos, box_width, box_height, mouse_x, mouse_y) {
-        this.square_pos = square_pos;
-        this.box_width = box_width;
-        this.box_height = box_height;
-        this.mouse_x = mouse_x;
-        this.mouse_y = mouse_y;
+    constructor() {
+        this.square_el = document.querySelector(".square");
+        this.box = document.querySelector(".box");
+        this.box_width = this.box.offsetWidth;
+        this.margin_top = this.box.offsetTop;
+        this.margin_bottom = this.margin_top + this.box.offsetHeight;
+        this.margin_left =  (window.innerWidth - this.box_width) / 2;
+        this.margin_right = window.innerWidth - this.margin_left;
+        this.mouse_x = document.querySelector(".square").style.left;
+        this.mouse_y = document.querySelector(".square").style.top;
+        this.add_event();
     }
-
     
+    // Block mouse coordinates in each direction
     box_delimiter() {
-        let box_space = document.getElementsByClassName("box")[0];
-        let margin_top = window.getComputedStyle(box_space).marginTop;
-        let margin_top_round = Math.round(Number(margin_top.substring(0,margin_top.indexOf("p"))));
-        if (mouse_x >= (window.innerWidth - box_width) / 2 + box_width - square_pos.offsetWidth)
-            mouse_x = (window.innerWidth - box_width) / 2 + box_width - square_pos.offsetWidth + 'px';
-        if (mouse_x <= (window.innerWidth - box_width) / 2) 
-            mouse_x = (window.innerWidth - box_width) / 2 + 'px';
-        if (mouse_y >= margin_top_round + box_space.offsetHeight - square_pos.offsetHeight)
-            mouse_y = margin_top_round + box_space.offsetHeight - square_pos.offsetHeight + 'px';
-        if (mouse_y <= margin_top_round)
-            mouse_y = margin_top_round + 'px';
+        // Right
+        if (this.mouse_x >= this.margin_left + this.box_width - this.square_el.offsetWidth) {
+            this.mouse_x = this.margin_left + this.box_width - this.square_el.offsetWidth;
+        }
+        // Left
+        else if (this.mouse_x <= this.margin_left) {
+            this.mouse_x = this.margin_left;
+        }
+        // Bottom
+        if (this.mouse_y >= this.margin_bottom - this.square_el.offsetHeight) {
+            this.mouse_y = this.margin_bottom - this.square_el.offsetHeight+1;
+        }
+        // Top
+        else if (this.mouse_y <= this.margin_top) {
+            this.mouse_y = this.margin_top;
+        }
     }
-
+    
+    // update new coordinates to the square
+    update() {
+        this.square_el.style.position = "absolute";
+        this.square_el.style.left = this.mouse_x + 'px',
+        this.square_el.style.top = this.mouse_y + 'px';
+    }
+    
+    // Get coordinates from mousemove event
     get_coords(event) {
-        mouse_x = event.clientX;
-        mouse_y = event.clientY;
+        this.mouse_x = event.clientX;
+        this.mouse_y = event.clientY;
         this.box_delimiter();
+        setInterval(this.update.bind(this), 2000);
     } 
-    
-    update(event) {
-        square_pos.style.position = "absolute";
-        square_pos.style.left = mouse_x + 'px',
-        square_pos.style.top = mouse_y + 'px';
+
+    // Event Listener
+    add_event() {
+        this.box.addEventListener("mousemove", this.get_coords.bind(this));
     }
-    
+      
 }
 
-let action = new MyClass(square_pos ,box_width, box_height);
-box_space.addEventListener("mousemove", () => {
-    action.get_coords(event),
-    setInterval(() => {
-        action.update()
-    }, 3000);
-});
+new Square_run();
+
