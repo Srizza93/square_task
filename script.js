@@ -69,7 +69,7 @@ class Square_run {
             this.mouse_y = this.margin_top;
         }
     }
-    
+
     // Manage square speed based on mouse coordinates
     speed_accelerator() {
         if (!this.count && this.speed <= 10) {
@@ -78,8 +78,9 @@ class Square_run {
         else if (this.speed > 1){
             this.speed-=1;
         }
-    }e
+    }
     
 }
 
 new Square_run();
+
