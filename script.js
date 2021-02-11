@@ -13,6 +13,11 @@ class Square_run {
         this.add_event();
     }
     
+    // Event Listener
+    add_event() {
+        this.box.addEventListener("mousemove", this.get_coords.bind(this));
+    }
+
     // Block mouse coordinates in each direction
     box_delimiter() {
         // Right
@@ -36,22 +41,20 @@ class Square_run {
     // update new coordinates to the square
     update() {
         this.square_el.style.position = "absolute";
-        this.square_el.style.left = this.mouse_x + 'px',
-        this.square_el.style.top = this.mouse_y + 'px';
+        this.square_el.style.left =  this.mouse_x + 'px',
+        this.square_el.style.top =  this.mouse_y + 'px';
+        this.square_el.style.transition = "2s";
     }
     
-    // Get coordinates from mousemove event
+    // Get coordinates from mousemove event, call box delimiter function, 
+    // and update coords with interval
     get_coords(event) {
         this.mouse_x = event.clientX;
         this.mouse_y = event.clientY;
         this.box_delimiter();
-        setInterval(this.update.bind(this), 2000);
+        this.update();
     } 
 
-    // Event Listener
-    add_event() {
-        this.box.addEventListener("mousemove", this.get_coords.bind(this));
-    }
       
 }
 
