@@ -32,7 +32,7 @@ class Square_run {
         this.update();
     }
 
-    // update new coordinates to the square
+    // Update new coordinates to the square
     update() {
         this.square_el.style.left =  this.mouse_x + 'px',
         this.square_el.style.top =  this.mouse_y + 'px';
