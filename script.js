@@ -36,7 +36,7 @@ class Square_run {
     update() {
         this.square_el.style.left =  this.mouse_x + 'px',
         this.square_el.style.top =  this.mouse_y + 'px';
-        this.square_el.style.transition = this.speed + "s";
+        this.square_el.style.transition = `all ${this.speed}s`;
     }
 
     // Detect when mouse is inside or outside the target
@@ -72,7 +72,7 @@ class Square_run {
 
     // Manage square speed based on mouse coordinates
     speed_accelerator() {
-        if (!this.count && this.speed <= 10) {
+        if (!this.count && this.speed < 10) {
             this.speed+=1;
         } 
         else if (this.speed > 1){
