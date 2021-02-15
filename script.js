@@ -75,7 +75,7 @@ class Square_run {
         if (!this.count && this.speed < 10) {
             this.speed+=1;
         } 
-        else if (this.speed > 1){
+        if (this.count && this.speed > 1){
             this.speed-=1;
         }
     }
