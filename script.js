@@ -12,6 +12,8 @@ class Square_run {
         this.mouse_y = document.querySelector(".square").offsetTop;
         this.mouse_in = false;
         this.speed = 2.5;
+        this.distance = 0;
+        this.size = 50;
         this.add_event();
     }
     
@@ -26,6 +28,8 @@ class Square_run {
     update() {
         this.square_el.style.left =  this.mouse_x + 'px',
         this.square_el.style.top =  this.mouse_y + 'px';
+        this.square_el.style.width = this.size + 'px';
+        this.square_el.style.height = this.size + 'px';
         this.square_el.style.transition = `all ${this.speed}s linear`;
         this.id = window.requestAnimationFrame(this.update.bind(this));
     }
@@ -37,6 +41,7 @@ class Square_run {
         this.mouse_y = event.clientY;
         this.mouse_in = true;
         this.box_delimiter();
+        // window.requestAnimationFrame(this.get_distance.bind(this));
         this.id = window.requestAnimationFrame(this.update.bind(this));
     }
     
@@ -70,12 +75,24 @@ class Square_run {
     speed_accelerator() {
         if (!this.mouse_in && this.speed < 5) {
             window.cancelAnimationFrame(this.id);
+            this.size = 50;
             this.speed+=0.1;
             
         } 
         if (this.mouse_in && this.speed > 0){
             this.speed-=0.1;
         }
+    }
+
+    get_distance() {
+        let dist_x = this.mouse_x - this.square_el.offsetLeft;
+        let dist_y = this.mouse_y - this.square_el.offsetTop;
+        this.distance = Math.sqrt(dist_x*dist_x+dist_y*dist_y);
+        if (this.distance > 75 || this.distance === 0) this.size = 125;
+        if (this.distance > 100) this.size = 100;
+        if (this.distance > 200) this.size = 75;
+        if (this.distance > 250) this.size = 50;
+        window.requestAnimationFrame(this.get_distance.bind(this));
     }
     
 }
