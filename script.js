@@ -4,10 +4,11 @@ class Square_run {
         this.square_el = document.querySelector(".square");
         this.box = document.querySelector(".box");
         this.box_width = this.box.offsetWidth;
+        this.window_width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         this.margin_top = this.box.offsetTop;
         this.margin_bottom = this.margin_top + this.box.offsetHeight;
-        this.margin_left =  (window.innerWidth - this.box_width) / 2;
-        this.margin_right = window.innerWidth - this.margin_left;
+        this.margin_left =  (this.window_width - this.box_width) / 2;
+        this.margin_right = this.window_width - this.margin_left;
         this.mouse_x = document.querySelector(".square").offsetLeft;
         this.mouse_y = document.querySelector(".square").offsetTop;
         this.mouse_in = false;
