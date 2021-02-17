@@ -21,7 +21,7 @@ class Square_run {
     // Event Listener
     add_event() {
         this.box.addEventListener("mousemove",this.get_coords.bind(this));
-        this.box.addEventListener("mouseout", this.mouse_out.bind(this));
+        this.box.addEventListener("mouseout", () => this.mouse_in = false);
         setInterval(this.speed_accelerator.bind(this), 500);
     }
     
@@ -42,7 +42,7 @@ class Square_run {
         this.mouse_y = event.clientY;
         this.mouse_in = true;
         this.box_delimiter();
-        // window.requestAnimationFrame(this.get_distance.bind(this));
+        window.requestAnimationFrame(this.get_distance.bind(this));
         this.id = window.requestAnimationFrame(this.update.bind(this));
     }
     
@@ -64,11 +64,6 @@ class Square_run {
         else if (this.mouse_y <= this.margin_top) {
             this.mouse_y = this.margin_top;
         }
-    }
-
-    // On "mouseout" start decreasing the speed
-    mouse_out() {
-        this.mouse_in = false;
     }
     
     // If square is in the box increase speed up to 5s, 
