@@ -21,7 +21,7 @@ class Square_run {
     // Event Listener
     add_event() {
         this.box.addEventListener("mousemove",this.get_coords.bind(this));
-        this.box.addEventListener("mouseout", () => this.mouse_in = false);
+        this.box.addEventListener("mouseout", this.mouse_out.bind(this));
         setInterval(this.speed_accelerator.bind(this), 100);
         setInterval(this.get_distance.bind(this), 100);
     }
@@ -44,6 +44,11 @@ class Square_run {
         this.square_el.style.height = this.size + 'px';
         this.square_el.style.transition = `all ${this.speed}s linear`;
     }
+
+    // Detect mouse when it is out of the box
+    mouse_out() {
+        this.mouse_in = false;
+    }
     
     // If square is in the box increase speed up to 5s, 
     // else decrease it to minimum 0s
@@ -51,18 +56,20 @@ class Square_run {
         if (!this.mouse_in && this.speed < 5) {
             window.cancelAnimationFrame(this.id);
             this.size = 50;
-            this.speed+=0.02;
+            this.speed += 0.02;
             
         } 
         if (this.mouse_in && this.speed > 0){
-            this.speed-=0.02;
+            this.speed -= 0.02;
         }
     }
     
+    // Get distance between mouse and square coordinates
     get_distance() {
         let dist_x = this.mouse_x - this.square_el.offsetLeft;
         let dist_y = this.mouse_y - this.square_el.offsetTop;
-        this.distance = Math.sqrt(dist_x*dist_x+dist_y*dist_y);
+        this.distance = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
+        console.log(this.distance);
         if (this.distance > 75 || this.distance === 0) this.size = 125;
         if (this.distance > 100) this.size = 100;
         if (this.distance > 200) this.size = 75;
