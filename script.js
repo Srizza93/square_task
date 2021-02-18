@@ -102,9 +102,7 @@ class Square_run {
                 this.size = 100 - (this.distance / 10);
             }
         }, 100);
-    }
-
-    
+    }   
     
 }
 
