@@ -15,7 +15,7 @@ class Square_run {
         this.speed = 2.5;
         this.distance = 0;
         this.size = 50;
-        this.id = null;
+        this.raf = null;
         this.add_event();
         this.speed_accelerator();
         this.get_distance();
@@ -33,7 +33,7 @@ class Square_run {
     get_coords(event) {
         this.mouse_x = event.clientX;
         this.mouse_y = event.clientY;
-        this.id = window.requestAnimationFrame(this.rendering.bind(this));
+        this.raf = window.requestAnimationFrame(this.rendering.bind(this));
         this.box_delimiter();
     }
     
@@ -55,7 +55,7 @@ class Square_run {
     mouse_out() {
         this.mouse_in = false;
         this.size = 50;
-        this.id = window.requestAnimationFrame(this.rendering.bind(this));
+        this.raf = window.requestAnimationFrame(this.rendering.bind(this));
     }
     
     // Block mouse coordinates in each direction
@@ -83,7 +83,7 @@ class Square_run {
     speed_accelerator() {
         setInterval(() => {
             if (!this.mouse_in && this.speed < 5) {
-                window.cancelAnimationFrame(this.id);
+                window.cancelAnimationFrame(this.raf);
                 this.speed += 0.02;
             } 
             if (this.mouse_in && this.speed > 0){
@@ -102,8 +102,8 @@ class Square_run {
                 this.size = 100 - (this.distance / 10);
             }
         }, 100);
-    }   
-    
+    }
+
 }
 
 new Square_run();
