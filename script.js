@@ -25,16 +25,6 @@ class Square_run {
         setInterval(this.speed_accelerator.bind(this), 500);
     }
     
-    // Update new coordinates to the square
-    update() {
-        this.square_el.style.left =  this.mouse_x + 'px',
-        this.square_el.style.top =  this.mouse_y + 'px';
-        this.square_el.style.width = this.size + 'px';
-        this.square_el.style.height = this.size + 'px';
-        this.square_el.style.transition = `all ${this.speed}s linear`;
-        this.id = window.requestAnimationFrame(this.update.bind(this));
-    }
-    
     // Get coordinates from mousemove event, call box delimiter function, 
     // and update coords with interval
     get_coords(event) {
@@ -43,9 +33,18 @@ class Square_run {
         this.mouse_in = true;
         this.box_delimiter();
         window.requestAnimationFrame(this.get_distance.bind(this));
-        this.id = window.requestAnimationFrame(this.update.bind(this));
+        this.id = window.requestAnimationFrame(this.rendering.bind(this));
     }
     
+    // Update new coordinates to the square
+    rendering() {
+        this.square_el.style.left =  this.mouse_x + 'px',
+        this.square_el.style.top =  this.mouse_y + 'px';
+        this.square_el.style.width = this.size + 'px';
+        this.square_el.style.height = this.size + 'px';
+        this.square_el.style.transition = `all ${this.speed}s linear`;
+    }
+
     // Block mouse coordinates in each direction
     box_delimiter() {
         // Right
@@ -88,7 +87,6 @@ class Square_run {
         if (this.distance > 100) this.size = 100;
         if (this.distance > 200) this.size = 75;
         if (this.distance > 250) this.size = 50;
-        window.requestAnimationFrame(this.get_distance.bind(this));
     }
     
 }
