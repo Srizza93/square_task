@@ -16,14 +16,14 @@ class Square_run {
         this.distance = 0;
         this.size = 50;
         this.add_event();
+        this.speed_accelerator();
+        this.get_distance();
     }
     
     // Event Listener
     add_event() {
         this.box.addEventListener("mousemove",this.get_coords.bind(this));
         this.box.addEventListener("mouseout", this.mouse_out.bind(this));
-        setInterval(this.speed_accelerator.bind(this), 100);
-        setInterval(this.get_distance.bind(this), 100);
     }
     
     // Get coordinates from mousemove event, call box delimiter function, 
@@ -48,32 +48,34 @@ class Square_run {
     // Detect mouse when it is out of the box
     mouse_out() {
         this.mouse_in = false;
+        this.size = 50;
     }
     
     // If square is in the box increase speed up to 5s, 
     // else decrease it to minimum 0s
     speed_accelerator() {
-        if (!this.mouse_in && this.speed < 5) {
-            window.cancelAnimationFrame(this.id);
-            this.size = 50;
-            this.speed += 0.02;
-            
-        } 
-        if (this.mouse_in && this.speed > 0){
-            this.speed -= 0.02;
-        }
+        setInterval(() => {
+            if (!this.mouse_in && this.speed < 5) {
+                window.cancelAnimationFrame(this.id);
+                this.speed += 0.02;
+            } 
+            if (this.mouse_in && this.speed > 0){
+                this.speed -= 0.02;
+            }
+        }, 100);
     }
     
     // Get distance between mouse and square coordinates
     get_distance() {
-        let dist_x = this.mouse_x - this.square_el.offsetLeft;
-        let dist_y = this.mouse_y - this.square_el.offsetTop;
-        this.distance = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
-        console.log(this.distance);
-        if (this.distance > 75 || this.distance === 0) this.size = 125;
-        if (this.distance > 100) this.size = 100;
-        if (this.distance > 200) this.size = 75;
-        if (this.distance > 250) this.size = 50;
+        setInterval(() => {
+            let dist_x = this.mouse_x - this.square_el.offsetLeft;
+            let dist_y = this.mouse_y - this.square_el.offsetTop;
+            this.distance = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
+            if (this.distance > 75 || this.distance === 0) this.size = 125;
+            if (this.distance > 100) this.size = 100;
+            if (this.distance > 200) this.size = 75;
+            if (this.distance > 250) this.size = 50;
+        }, 100);
     }
 
     // Block mouse coordinates in each direction
@@ -95,8 +97,6 @@ class Square_run {
             this.mouse_y = this.margin_top;
         }
     }
-    
-    
 }
 
 new Square_run();
