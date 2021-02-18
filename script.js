@@ -22,7 +22,8 @@ class Square_run {
     add_event() {
         this.box.addEventListener("mousemove",this.get_coords.bind(this));
         this.box.addEventListener("mouseout", () => this.mouse_in = false);
-        setInterval(this.speed_accelerator.bind(this), 500);
+        setInterval(this.speed_accelerator.bind(this), 100);
+        setInterval(this.get_distance.bind(this), 100);
     }
     
     // Get coordinates from mousemove event, call box delimiter function, 
@@ -32,7 +33,6 @@ class Square_run {
         this.mouse_y = event.clientY;
         this.mouse_in = true;
         this.box_delimiter();
-        window.requestAnimationFrame(this.get_distance.bind(this));
         this.id = window.requestAnimationFrame(this.rendering.bind(this));
     }
     
@@ -43,6 +43,30 @@ class Square_run {
         this.square_el.style.width = this.size + 'px';
         this.square_el.style.height = this.size + 'px';
         this.square_el.style.transition = `all ${this.speed}s linear`;
+    }
+    
+    // If square is in the box increase speed up to 5s, 
+    // else decrease it to minimum 0s
+    speed_accelerator() {
+        if (!this.mouse_in && this.speed < 5) {
+            window.cancelAnimationFrame(this.id);
+            this.size = 50;
+            this.speed+=0.02;
+            
+        } 
+        if (this.mouse_in && this.speed > 0){
+            this.speed-=0.02;
+        }
+    }
+    
+    get_distance() {
+        let dist_x = this.mouse_x - this.square_el.offsetLeft;
+        let dist_y = this.mouse_y - this.square_el.offsetTop;
+        this.distance = Math.sqrt(dist_x*dist_x+dist_y*dist_y);
+        if (this.distance > 75 || this.distance === 0) this.size = 125;
+        if (this.distance > 100) this.size = 100;
+        if (this.distance > 200) this.size = 75;
+        if (this.distance > 250) this.size = 50;
     }
 
     // Block mouse coordinates in each direction
@@ -65,29 +89,6 @@ class Square_run {
         }
     }
     
-    // If square is in the box increase speed up to 5s, 
-    // else decrease it to minimum 0s
-    speed_accelerator() {
-        if (!this.mouse_in && this.speed < 5) {
-            window.cancelAnimationFrame(this.id);
-            this.size = 50;
-            this.speed+=0.1;
-            
-        } 
-        if (this.mouse_in && this.speed > 0){
-            this.speed-=0.1;
-        }
-    }
-
-    get_distance() {
-        let dist_x = this.mouse_x - this.square_el.offsetLeft;
-        let dist_y = this.mouse_y - this.square_el.offsetTop;
-        this.distance = Math.sqrt(dist_x*dist_x+dist_y*dist_y);
-        if (this.distance > 75 || this.distance === 0) this.size = 125;
-        if (this.distance > 100) this.size = 100;
-        if (this.distance > 200) this.size = 75;
-        if (this.distance > 250) this.size = 50;
-    }
     
 }
 
