@@ -15,6 +15,7 @@ class Square_run {
         this.speed = 2.5;
         this.distance = 0;
         this.size = 50;
+        this.id = null;
         this.add_event();
         this.speed_accelerator();
         this.get_distance();
@@ -22,8 +23,9 @@ class Square_run {
     
     // Event Listener
     add_event() {
+        this.box.addEventListener("mouseover", this.mouse_is_in.bind(this));
         this.box.addEventListener("mousemove",this.get_coords.bind(this));
-        this.box.addEventListener("mouseout", this.mouse_out.bind(this));
+        this.box.addEventListener("mouseleave", this.mouse_out.bind(this));
     }
     
     // Get coordinates from mousemove event, call box delimiter function, 
@@ -31,9 +33,8 @@ class Square_run {
     get_coords(event) {
         this.mouse_x = event.clientX;
         this.mouse_y = event.clientY;
-        this.mouse_in = true;
-        this.box_delimiter();
         this.id = window.requestAnimationFrame(this.rendering.bind(this));
+        this.box_delimiter();
     }
     
     // Update new coordinates to the square
@@ -45,12 +46,38 @@ class Square_run {
         this.square_el.style.transition = `all ${this.speed}s linear`;
     }
 
+    // Detect mouse when it is in of the box
+    mouse_is_in() {
+        this.mouse_in = true;
+    }
+
     // Detect mouse when it is out of the box
     mouse_out() {
         this.mouse_in = false;
         this.size = 50;
+        this.id = window.requestAnimationFrame(this.rendering.bind(this));
     }
     
+    // Block mouse coordinates in each direction
+    box_delimiter() {
+        // Right
+        if (this.mouse_x >= this.margin_left + this.box_width - this.square_el.offsetWidth) {
+            this.mouse_x = this.margin_left + this.box_width - this.square_el.offsetWidth;
+        }
+        // Left
+        else if (this.mouse_x <= this.margin_left) {
+            this.mouse_x = this.margin_left;
+        }
+        // Bottom
+        if (this.mouse_y >= this.margin_bottom - this.square_el.offsetHeight) {
+            this.mouse_y = this.margin_bottom - this.square_el.offsetHeight;
+        }
+        // Top
+        else if (this.mouse_y <= this.margin_top) {
+            this.mouse_y = this.margin_top;
+        }
+    }
+
     // If square is in the box increase speed up to 5s, 
     // else decrease it to minimum 0s
     speed_accelerator() {
@@ -71,32 +98,14 @@ class Square_run {
             let dist_x = this.mouse_x - this.square_el.offsetLeft;
             let dist_y = this.mouse_y - this.square_el.offsetTop;
             this.distance = Math.sqrt(dist_x * dist_x + dist_y * dist_y);
-            if (this.distance > 75 || this.distance === 0) this.size = 125;
-            if (this.distance > 100) this.size = 100;
-            if (this.distance > 200) this.size = 75;
-            if (this.distance > 250) this.size = 50;
+            if (this.mouse_in && this.distance < 500) {
+                this.size = 100 - (this.distance / 10);
+            }
         }, 100);
     }
 
-    // Block mouse coordinates in each direction
-    box_delimiter() {
-        // Right
-        if (this.mouse_x >= this.margin_left + this.box_width - this.square_el.offsetWidth) {
-            this.mouse_x = this.margin_left + this.box_width - this.square_el.offsetWidth;
-        }
-        // Left
-        else if (this.mouse_x <= this.margin_left) {
-            this.mouse_x = this.margin_left;
-        }
-        // Bottom
-        if (this.mouse_y >= this.margin_bottom - this.square_el.offsetHeight) {
-            this.mouse_y = this.margin_bottom - this.square_el.offsetHeight;
-        }
-        // Top
-        else if (this.mouse_y <= this.margin_top) {
-            this.mouse_y = this.margin_top;
-        }
-    }
+    
+    
 }
 
 new Square_run();
