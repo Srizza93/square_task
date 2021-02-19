@@ -106,4 +106,3 @@ class Square_run {
 }
 
 new Square_run();
-
