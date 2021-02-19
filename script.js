@@ -4,11 +4,10 @@ class Square_run {
         this.square_el = document.querySelector(".square");
         this.box = document.querySelector(".box");
         this.box_width = this.box.offsetWidth;
-        this.window_width = window.innerWidth;
+        this.window_width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         this.margin_top = this.box.offsetTop;
         this.margin_bottom = this.margin_top + this.box.offsetHeight;
-        this.margin_left =  (this.window_width - this.box_width) / 2;
-        this.margin_right = this.window_width - this.margin_left;
+        this.margin_side =  (this.window_width - this.box_width) / 2;
         this.mouse_x = document.querySelector(".square").offsetLeft;
         this.mouse_y = document.querySelector(".square").offsetTop;
         this.mouse_in = false;
@@ -17,8 +16,6 @@ class Square_run {
         this.size = 50;
         this.raf = null;
         this.add_event();
-        this.speed_accelerator();
-        this.get_distance();
     }
     
     // Event Listener
@@ -26,6 +23,8 @@ class Square_run {
         this.box.addEventListener("mouseover", this.mouse_is_in.bind(this));
         this.box.addEventListener("mousemove",this.get_coords.bind(this));
         this.box.addEventListener("mouseleave", this.mouse_out.bind(this));
+        this.speed_accelerator();
+        this.get_distance();
     }
     
     // Get coordinates from mousemove event, call box delimiter function, 
@@ -33,8 +32,8 @@ class Square_run {
     get_coords(event) {
         this.mouse_x = event.clientX;
         this.mouse_y = event.clientY;
-        this.raf = window.requestAnimationFrame(this.rendering.bind(this));
         this.box_delimiter();
+        this.raf = window.requestAnimationFrame(this.rendering.bind(this));
     }
     
     // Update new coordinates to the square
@@ -61,20 +60,20 @@ class Square_run {
     // Block mouse coordinates in each direction
     box_delimiter() {
         // Right
-        if (this.mouse_x >= this.margin_left + this.box_width - this.square_el.offsetWidth) {
-            this.mouse_x = this.margin_left + this.box_width - this.square_el.offsetWidth;
+        if (this.mouse_x >= this.margin_side + this.box_width - (this.square_el.offsetWidth / 2)) {
+            this.mouse_x = this.margin_side + this.box_width - (this.square_el.offsetWidth / 2);
         }
         // Left
-        else if (this.mouse_x <= this.margin_left) {
-            this.mouse_x = this.margin_left;
+        if (this.mouse_x <= this.margin_side + (this.square_el.offsetWidth / 2)) {
+            this.mouse_x = this.margin_side + (this.square_el.offsetWidth / 2);
         }
         // Bottom
-        if (this.mouse_y >= this.margin_bottom - this.square_el.offsetHeight) {
-            this.mouse_y = this.margin_bottom - this.square_el.offsetHeight;
+        if (this.mouse_y >= this.margin_bottom - (this.square_el.offsetHeight / 2)) {
+            this.mouse_y = this.margin_bottom - (this.square_el.offsetHeight / 2);
         }
         // Top
-        else if (this.mouse_y <= this.margin_top) {
-            this.mouse_y = this.margin_top;
+        if (this.mouse_y <= this.margin_top + (this.square_el.offsetHeight / 2)) {
+            this.mouse_y = this.margin_top + (this.square_el.offsetHeight / 2);
         }
     }
 
