@@ -4,7 +4,7 @@ class Square_run {
         this.square_el = document.querySelector(".square");
         this.box = document.querySelector(".box");
         this.box_width = this.box.offsetWidth;
-        this.window_width = window.screen.availWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        this.window_width = screen.width || document.documentElement.clientWidth || document.body.clientWidth;
         this.margin_top = this.box.offsetTop;
         this.margin_bottom = this.margin_top + this.box.offsetHeight;
         this.margin_left =  (this.window_width - this.box_width) / 2;
